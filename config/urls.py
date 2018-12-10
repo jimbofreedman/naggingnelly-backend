@@ -20,7 +20,7 @@ urlpatterns = [
         include("backend.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
+    path("todo/", include("todo.urls", namespace="todo")),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="runserver_plus" type="Python.DjangoServer" factoryName="Django server" singleton="false">
+  <configuration default="false" name="show_urls" type="Python.DjangoServer" factoryName="Django server" singleton="false">
     <module name="backend" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
@@ -20,14 +20,13 @@
       </option>
     </PathMappingSettings>
     <option name="launchJavascriptDebuger" value="false" />
-    <option name="port" value="8000" />
-    <option name="host" value="0.0.0.0" />
+    <option name="host" value="" />
     <option name="additionalOptions" value="" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />
     <option name="runNoReload" value="false" />
     <option name="useCustomRunCommand" value="true" />
-    <option name="customRunCommand" value="runserver_plus" />
+    <option name="customRunCommand" value="show_urls" />
     <method v="2" />
   </configuration>
 </component>
