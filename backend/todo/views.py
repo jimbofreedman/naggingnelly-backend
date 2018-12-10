@@ -2,12 +2,13 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.utils import timezone
 
 from .models import TodoItem
 
 def index(request):
     context = {
-        "items": TodoItem.objects.filter(status=TodoItem.STATUS.open)
+        "items": TodoItem.objects.filter(status=TodoItem.STATUS.open,start__lte=timezone.now())
     }
 
     return render(request, "todo/index.html", context)
