@@ -21,3 +21,9 @@ def complete(request, item_id):
 
     return index(request)
 
+def fail(request, item_id):
+    item = TodoItem.objects.get(pk=item_id)
+    item.status = TodoItem.STATUS.failed
+    item.save()
+
+    return index(request)
