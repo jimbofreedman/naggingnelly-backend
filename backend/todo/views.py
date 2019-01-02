@@ -21,6 +21,14 @@ def complete(request, item_id):
 
     return index(request)
 
+
+def cancel(request, item_id):
+    item = TodoItem.objects.get(pk=item_id)
+    item.status = TodoItem.STATUS.cancelled
+    item.save()
+
+    return index(request)
+
 def fail(request, item_id):
     item = TodoItem.objects.get(pk=item_id)
     item.status = TodoItem.STATUS.failed

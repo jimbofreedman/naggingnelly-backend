@@ -9,6 +9,7 @@
             <tr>
                 <td>{{ item.title }}</td>
                 <td><a type="button" href="{% url 'todo:complete' item.id %}">YES</a></td>
+                <td><a type="button" href="{% url 'todo:cancel' item.id %}">MEH</a></td>
                 <td><a type="button" href="{% url 'todo:fail' item.id %}">NO</a></td>
             </tr>
         {% endfor %}
