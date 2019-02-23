@@ -12,4 +12,5 @@ class ContextSerializer(serializers.ModelSerializer):
 class TodoItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoItem
-        fields = ['id', 'title', 'start', 'due', 'completed', 'order', 'contexts', ]
+        fields = ['id', 'title', 'start', 'due', 'completed', 'order', 'urgency',
+                  'time_estimate', 'contexts', 'dependencies', ]
