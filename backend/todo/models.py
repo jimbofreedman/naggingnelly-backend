@@ -35,7 +35,8 @@ class TodoItem(TimeStampedModel, StatusModel):
     recurrence = RecurrenceField(blank=True, null=True)
 
     contexts = models.ManyToManyField(Context, blank=True)
-    dependencies = models.ManyToManyField('TodoItem', blank=True)
+    project = models.ForeignKey('TodoItem', related_name='members',on_delete=models.PROTECT, blank=True, null=True)
+    dependencies = models.ManyToManyField('TodoItem', related_name='dependents', symmetrical=False, blank=True)
 
     def save(self, *args, **kwargs):
         # If we have just been completed
