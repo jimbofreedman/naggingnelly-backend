@@ -8,6 +8,14 @@ from model_utils import Choices
 from recurrence.fields import RecurrenceField
 from django.utils import timezone
 
+
+class Context(TimeStampedModel):
+    name = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.name
+
+
 class TodoItem(TimeStampedModel, StatusModel):
     STATUS = Choices('open', 'cancelled', 'failed', 'complete')
 
@@ -20,6 +28,9 @@ class TodoItem(TimeStampedModel, StatusModel):
     order = models.BigIntegerField()
 
     recurrence = RecurrenceField(blank=True, null=True)
+
+
+    contexts = models.ManyToManyField(Context)
 
     def save(self, *args, **kwargs):
         # If we have just been completed
