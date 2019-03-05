@@ -27,9 +27,7 @@ class TodoItem(TimeStampedModel, StatusModel):
             # Make an TodoRecurrenceLog object for this TodoItem,
             # and reset it with new start/due
             if self.recurrence is not None and len(self.recurrence.rrules) > 0 and self.start:
-                # Possible to create recurrence without dtstart, then it recurs to same date
-                if self.recurrence.dtstart is None:
-                    self.recurrence.dtstart = datetime.combine(self.due.date(), datetime.min.time())
+                self.recurrence.dtstart = datetime.combine(self.due.date(), datetime.min.time())
 
                 recurrence_log = TodoRecurrenceLog.objects.create(
                     item=self,
