@@ -8,8 +8,18 @@ from model_utils import Choices
 from recurrence.fields import RecurrenceField
 from django.utils import timezone
 
+
+class Context(TimeStampedModel):
+    name = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.name
+
+
 class TodoItem(TimeStampedModel, StatusModel):
     STATUS = Choices('open', 'cancelled', 'failed', 'complete')
+    URGENCY = Choices(0, 1, 2, 3, 4, 5)
+    TIME_ESTIMATE = Choices('5m', '15m', '30m', '1h', '4h', '1d', '3d', '1w', '5w', '10w', '20w')
 
     title = models.CharField(max_length=128)
 
@@ -19,7 +29,14 @@ class TodoItem(TimeStampedModel, StatusModel):
 
     order = models.BigIntegerField()
 
+    urgency = models.PositiveSmallIntegerField(choices=URGENCY, blank=True, null=True)
+    time_estimate = models.CharField(max_length=3, choices=TIME_ESTIMATE, blank=True, null=True)
+
     recurrence = RecurrenceField(blank=True, null=True)
+
+    contexts = models.ManyToManyField(Context, blank=True)
+    project = models.ForeignKey('TodoItem', related_name='members',on_delete=models.PROTECT, blank=True, null=True)
+    dependencies = models.ManyToManyField('TodoItem', related_name='dependents', symmetrical=False, blank=True)
 
     def save(self, *args, **kwargs):
         # If we have just been completed
@@ -41,7 +58,6 @@ class TodoItem(TimeStampedModel, StatusModel):
                 if recur_date is not None:
                     self.start = datetime.combine(recur_date, self.start.time())
                     self.due = datetime.combine(recur_date, self.due.time()) if self.due else None
-                    self.status = self.STATUS.open
                 else:
                     self.completed = timezone.now()
             else:

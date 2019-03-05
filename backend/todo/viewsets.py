@@ -1,13 +1,17 @@
 from rest_framework import viewsets
-from .serializers import TodoItemSerializer
-from .models import TodoItem
+from .serializers import ContextSerializer, TodoItemSerializer
+from .models import Context, TodoItem
+
+
+class ContextViewSet(viewsets.ModelViewSet):
+    serializer_class = ContextSerializer
+
+    def get_queryset(self):
+        return Context.objects.all()
 
 
 class TodoItemViewSet(viewsets.ModelViewSet):
     serializer_class = TodoItemSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         return TodoItem.objects.all()
