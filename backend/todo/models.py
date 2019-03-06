@@ -44,7 +44,7 @@ class TodoItem(TimeStampedModel, StatusModel):
             # Make an TodoRecurrenceLog object for this TodoItem,
             # and reset it with new start/due
             if self.recurrence is not None and len(self.recurrence.rrules) > 0 and self.start:
-                self.recurrence.dtstart = datetime.combine(self.due.date(), datetime.min.time())
+                self.recurrence.dtstart = timezone.make_aware(datetime.combine(self.due.date(), datetime.min.time()))
 
                 recurrence_log = TodoRecurrenceLog.objects.create(
                     item=self,
@@ -56,8 +56,9 @@ class TodoItem(TimeStampedModel, StatusModel):
                 recur_date = self.recurrence.after(self.start, inc=False)
 
                 if recur_date is not None:
-                    self.start = datetime.combine(recur_date, self.start.time())
-                    self.due = datetime.combine(recur_date, self.due.time()) if self.due else None
+                    self.start = timezone.make_aware(datetime.combine(recur_date, self.start.time()))
+                    self.due = timezone.make_aware(datetime.combine(recur_date, self.due.time()) if self.due else None)
+                    self.status = self.STATUS.open
                 else:
                     self.completed = timezone.now()
             else:
