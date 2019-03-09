@@ -215,3 +215,21 @@ RAVEN_CONFIG = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+CORS_ORIGIN_WHITELIST = (
+    'naggingnelly-backend.herokuapp.com',
+    'naggingnelly.com',
+    'www.naggingnelly.com',
+    'api.naggingnelly.com',
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    'naggingnelly-backend.herokuapp.com',
+    'naggingnelly.com',
+    'www.naggingnelly.com',
+    'api.naggingnelly.com',
+)
+
+CSRF_COOKIE_DOMAIN = '.naggingnelly.com'
+CSRF_COOKIE_HTTPONLY = False
+
+SESSION_COOKIE_DOMAIN = '.naggingnelly.com'

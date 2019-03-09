@@ -67,6 +67,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
+    'corsheaders',
     'recurrence',
 ]
 LOCAL_APPS = [
@@ -130,6 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -270,6 +272,18 @@ SOCIALACCOUNT_ADAPTER = 'backend.users.adapters.SocialAccountAdapter'
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+CORS_ALLOW_HEADERS = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken',
+    'if-modified-since'
+)
+
+CORS_ALLOW_CREDENTIALS = True
+
 REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',

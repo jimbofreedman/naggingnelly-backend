@@ -9,7 +9,7 @@ app_name = "todo"
 
 router = DefaultRouter()
 router.register(r'contexts', ContextViewSet, base_name='contexts')
-router.register(r'todo_items', TodoItemViewSet, base_name='todo_items')
+router.register(r'todoItems', TodoItemViewSet, base_name='todo_items')
 
 urlpatterns = [
     path(r'complete/<int:item_id>/', view=complete, name="complete"),
