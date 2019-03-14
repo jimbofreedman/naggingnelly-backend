@@ -33,6 +33,7 @@ class TodoItem(TimeStampedModel, StatusModel):
     time_estimate = models.CharField(max_length=3, choices=TIME_ESTIMATE, blank=True, null=True)
 
     recurrence = RecurrenceField(blank=True, null=True)
+    streak = models.PositiveSmallIntegerField(default=0)
 
     contexts = models.ManyToManyField(Context, blank=True)
     project = models.ForeignKey('TodoItem', related_name='members',on_delete=models.PROTECT, blank=True, null=True)
@@ -58,6 +59,12 @@ class TodoItem(TimeStampedModel, StatusModel):
                 if recur_date is not None:
                     self.start = timezone.make_aware(datetime.combine(recur_date, self.start.time()))
                     self.due = timezone.make_aware(datetime.combine(recur_date, self.due.time()) if self.due else None)
+
+                    if self.status == self.STATUS.complete:
+                        self.streak = self.streak + 1
+                    elif self.status == self.STATUS.failed:
+                        self.streak = 0
+
                     self.status = self.STATUS.open
                 else:
                     self.completed = timezone.now()
