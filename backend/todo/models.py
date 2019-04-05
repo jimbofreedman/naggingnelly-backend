@@ -27,7 +27,7 @@ class TodoItem(TimeStampedModel, StatusModel):
     due = models.DateTimeField(blank=True, null=True)
     completed = models.DateTimeField(blank=True, null=True)
 
-    order = models.BigIntegerField()
+    order = models.FloatField()
 
     urgency = models.PositiveSmallIntegerField(choices=URGENCY, blank=True, null=True)
     time_estimate = models.CharField(max_length=3, choices=TIME_ESTIMATE, blank=True, null=True)
