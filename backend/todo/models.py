@@ -21,6 +21,8 @@ class TodoItem(TimeStampedModel, StatusModel):
     URGENCY = Choices(0, 1, 2, 3, 4, 5)
     TIME_ESTIMATE = Choices('5m', '15m', '30m', '1h', '4h', '1d', '3d', '1w', '5w', '10w', '20w')
 
+    deleted = models.BooleanField(default=False)
+
     title = models.CharField(max_length=128)
 
     start = models.DateTimeField(blank=True, null=True)
@@ -82,7 +84,7 @@ class TodoItem(TimeStampedModel, StatusModel):
 
 class TodoRecurrenceLog(TimeStampedModel, StatusModel):
     STATUS = TodoItem.STATUS
-    
+
     item = models.ForeignKey(TodoItem, on_delete=models.CASCADE)
 
     start = models.DateTimeField(null=True, blank=True)
