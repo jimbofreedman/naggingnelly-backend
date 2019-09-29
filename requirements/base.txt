@@ -20,6 +20,6 @@ djangorestframework==3.9.0  # https://github.com/encode/django-rest-framework
 coreapi==2.3.3  # https://github.com/core-api/python-client
 django-cors-headers==2.5.0
 djangorestframework-jsonapi==2.7.0
+django-rest-auth==0.9.5
 
 django-recurrence==1.8.2
-

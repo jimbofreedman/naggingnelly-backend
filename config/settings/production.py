@@ -229,7 +229,7 @@ CSRF_TRUSTED_ORIGINS = (
     'api.naggingnelly.com',
 )
 
-# CSRF_COOKIE_DOMAIN = '.naggingnelly.com'
-# CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_DOMAIN = '.naggingnelly.com'
+CSRF_COOKIE_HTTPONLY = False
 
-# SESSION_COOKIE_DOMAIN = '.naggingnelly.com'
+SESSION_COOKIE_DOMAIN = '.naggingnelly.com'
