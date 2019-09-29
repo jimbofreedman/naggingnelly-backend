@@ -20,8 +20,8 @@ urlpatterns = [
         include("backend.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
-    path("rest-auth/", include("rest_auth.urls")),
-    path("todo/", include("todo.urls", namespace="todo")),
+    path("api/", include("todo.urls", namespace="todo")),
+    path("api/auth/", include("rest_auth.urls")),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
