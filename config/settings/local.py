@@ -72,3 +72,7 @@ CELERY_TASK_EAGER_PROPAGATES = True
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
 )
+CSRF_TRUSTED_ORIGINS = (
+    'localhost:3000',
+)
+CSRF_COOKIE_DOMAIN = 'localhost'

@@ -1,16 +1,13 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-from backend.users.views import (
-    user_list_view,
-    user_redirect_view,
-    user_update_view,
-    user_detail_view,
-)
+from .viewsets import UserViewSet
 
-app_name = "users"
+app_name = "backend.users"
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet, base_name='users')
+
 urlpatterns = [
-    path("", view=user_list_view, name="list"),
-    path("~redirect/", view=user_redirect_view, name="redirect"),
-    path("~update/", view=user_update_view, name="update"),
-    path("<str:username>/", view=user_detail_view, name="detail"),
+    path("", include(router.urls)),
 ]

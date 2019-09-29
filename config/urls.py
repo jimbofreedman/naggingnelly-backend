@@ -20,6 +20,7 @@ urlpatterns = [
         include("backend.users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
+    path("api/", include("backend.users.urls", namespace="users")),
     path("api/", include("todo.urls", namespace="todo")),
     path("api/auth/", include("rest_auth.urls")),
 ] + static(
