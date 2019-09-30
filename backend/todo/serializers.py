@@ -14,3 +14,4 @@ class TodoItemSerializer(serializers.ModelSerializer):
         model = TodoItem
         fields = ['id', 'deleted', 'title', 'start', 'due', 'completed', 'order', 'urgency', 'status',
                   'time_estimate', 'contexts', 'project', 'dependencies', 'streak', ]
+

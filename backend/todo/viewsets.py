@@ -1,7 +1,6 @@
 from rest_framework import viewsets, permissions
 from .serializers import ContextSerializer, TodoItemSerializer
 from .models import Context, TodoItem
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 class ContextViewSet(viewsets.ModelViewSet):
     serializer_class = ContextSerializer
@@ -15,3 +14,6 @@ class TodoItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return TodoItem.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

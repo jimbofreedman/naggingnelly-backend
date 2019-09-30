@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from datetime import datetime
+from time import time
+import calendar
 
 from django.db import models
 from model_utils.models import TimeStampedModel, StatusModel
@@ -8,6 +10,7 @@ from model_utils import Choices
 from recurrence.fields import RecurrenceField
 from django.utils import timezone
 
+from backend.users.models import User
 
 class Context(TimeStampedModel):
     name = models.CharField(max_length=32)
@@ -23,6 +26,7 @@ class TodoItem(TimeStampedModel, StatusModel):
 
     deleted = models.BooleanField(default=False)
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
 
     start = models.DateTimeField(blank=True, null=True)
@@ -42,6 +46,12 @@ class TodoItem(TimeStampedModel, StatusModel):
     dependencies = models.ManyToManyField('TodoItem', related_name='dependents', symmetrical=False, blank=True)
 
     def save(self, *args, **kwargs):
+        # If we are new, we need a task order
+        if not self.id:
+            # Order should gradually creep up over the span of a user's account history
+            # So, set it to milliseconds since account creation
+            self.order = time() - calendar.timegm(self.owner.created.utctimetuple())
+
         # If we have just been completed
         if self.status != self.STATUS.open and self.completed is None:
             # Make an TodoRecurrenceLog object for this TodoItem,
