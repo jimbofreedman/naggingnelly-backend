@@ -288,7 +288,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_HTTPONLY = False
 
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 1000000,
+    'PAGE_SIZE': 80,
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
