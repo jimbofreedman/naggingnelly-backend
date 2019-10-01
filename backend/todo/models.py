@@ -31,6 +31,7 @@ class TodoItem(TimeStampedModel, StatusModel):
 
     start = models.DateTimeField(blank=True, null=True)
     due = models.DateTimeField(blank=True, null=True)
+    snooze_until = models.DateTimeField(blank=True, null=True)
     completed = models.DateTimeField(blank=True, null=True)
 
     order = models.FloatField()
